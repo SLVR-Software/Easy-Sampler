@@ -6,7 +6,7 @@ import downloadVideo
 
 FILE_PATH = r"C:\Users\Chris Massie\Google Drive\AudioVideoFiles"
 
-FILE_PATH = input("Please paste the file path save location:")
+#FILE_PATH = input("Please paste the file path save location:")
 
 FILENAME = "links.txt"
 
@@ -29,17 +29,17 @@ if (functionNumber == "0"):
    with open(FILENAME) as f:
       URLS = f.read().splitlines()
       for url in URLS:
-         downloadVideo(url, FILE_PATH)
+         downloadVideo.downloadVideo(url, FILE_PATH)
 elif (functionNumber == "1"):
    PLAYLIST_URL = input("Please paste the playlist url:")
    playlist = Playlist(PLAYLIST_URL)
    print(playlist.video_urls)
    URLS = playlist.video_urls
    for url in URLS:
-      downloadVideo(url, FILE_PATH)
+      downloadVideo.downloadVideo(url, FILE_PATH)
 elif (functionNumber == "2"):
    URL = input("Paste the video link:")
-   downloadVideo(URL, FILE_PATH)
+   downloadVideo.downloadVideo(URL, FILE_PATH)
 
 
 
