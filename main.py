@@ -15,15 +15,15 @@ isAcceptableInput = False
 
 
 while isAcceptableInput == False:
-   print("0 - using playlist")
-   print("1 - using link file")
+   print("0 - using link file")
+   print("1 - using playlist link")
    print("2 - using single video link")
-   functionNumber = (input("Please type True or False:"))
+   functionNumber = (input("Please type a number and hit enter:"))
    if (functionNumber == "0" or functionNumber == "1" or functionNumber == "2"):
       isAcceptableInput = True
       break
    else:
-      print("Couldn't be bothered to bullet proof this, try again with 'True' or 'False'")
+      print("Couldn't be bothered to bullet proof this, try again with a number one through three")
 
 if (functionNumber == "0"):
    with open(FILENAME) as f:
@@ -49,10 +49,10 @@ elif (functionNumber == "2"):
 
 
 
-#TODO Only get one copy of the highest quality video
-#TODO Only get one copy of the highest quality video
+##TODO Only get one copy of the highest quality video
+##TODO Only get one copy of the highest quality video
 #TODO Merge Video and Audio together into new file and delete original video file to save space
-#TODO Scrape video title down to only include 'a-z and 0-9' this will stop names breaking file paths
+##TODO Scrape video title down to only include 'a-z and 0-9' this will stop names breaking file paths
 
 
 
