@@ -5,7 +5,7 @@ import os, sys
 import downloadVideo
 
 CONFIG_FILE = 'config.txt'
-# FILE_PATH = r"C:\Users\Chris Massie\Google Drive\AudioVideoFiles"
+
 # FILE_PATH = './testdump'
 
 # FILE_PATH is where video and audio streams should be saved
@@ -22,6 +22,8 @@ with open(CONFIG_FILE, 'r') as config_file:
 #FILE_PATH = input("Please paste the file path save location:")
 
 FILENAME = "links.txt"
+
+#FILE_PATH = r"C:\Users\Chris Massie\Google Drive\AudioVideoFiles"
 
 functionNumber = "0"
 isAcceptableInput = False
