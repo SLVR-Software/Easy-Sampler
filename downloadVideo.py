@@ -1,8 +1,10 @@
 from pytube import YouTube, Playlist
+from moviepy.editor import *
 import ffmpeg
 # misc
 import os, sys, re
 import shutil
+
 
 
 def downloadVideo(url, FILE_PATH):
@@ -38,19 +40,26 @@ def downloadVideo(url, FILE_PATH):
             isAudioDownloaded = True
             audioFileName = stream.type+"_"+videoTitle+".mp4"
         if (isAudioDownloaded == True and isVideoDownloaded == True):
+            #combine audio and video streams into audio/video file
             videoFilePath = os.path.join(SAVE_PATH, videoFileName)
             audioFilePath = os.path.join(SAVE_PATH, audioFileName)
-            print(videoFilePath)
-            print(audioFilePath)
+
             input_video = ffmpeg.input(videoFilePath)
             input_audio = ffmpeg.input(audioFilePath)
             OUTPUT_PATH = os.path.join(SAVE_PATH, "processed", videoTitle + ".mp4")
 
-            #ffmpeg.concat(input_video, input_audio, v=1, a=1).output(SAVE_PATH+"/processed/"+videoTitle+".mp4").run()
-
             ffmpeg.output( input_audio,input_video, videoTitle+".mp4").run()
             shutil.move((videoTitle+".mp4"),SAVE_PATH)
-            
+
+            #convert mp4 audio to mp3
+            mp4_file = audioFilePath
+            mp3_file = os.path.join(SAVE_PATH, videoTitle+".mp3")
+
+            audioclip = AudioFileClip(mp4_file)
+            audioclip.write_audiofile(mp3_file)
+
+            audioclip.close()
+
             break
 
 def findHighestResolution(STREAMS):
