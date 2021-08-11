@@ -38,11 +38,13 @@ def downloadVideo(url, FILE_PATH):
             isAudioDownloaded = True
             audioFileName = stream.type+"_"+videoTitle+".mp4"
         if (isAudioDownloaded == True and isVideoDownloaded == True):
-            print(SAVE_PATH+"\\"+videoFileName)
-            print(SAVE_PATH+"\\"+audioFileName)
-            input_video = ffmpeg.input(SAVE_PATH+"\\"+videoFileName)
-            input_audio = ffmpeg.input(SAVE_PATH+"\\"+audioFileName)
-            OUTPUT_PATH = SAVE_PATH+"\processed\\"+videoTitle+".mp4"
+            videoFilePath = os.path.join(SAVE_PATH, videoFileName)
+            audioFilePath = os.path.join(SAVE_PATH, audioFileName)
+            print(videoFilePath)
+            print(audioFilePath)
+            input_video = ffmpeg.input(videoFilePath)
+            input_audio = ffmpeg.input(audioFilePath)
+            OUTPUT_PATH = os.path.join(SAVE_PATH, "processed", videoTitle + ".mp4")
 
             #ffmpeg.concat(input_video, input_audio, v=1, a=1).output(SAVE_PATH+"/processed/"+videoTitle+".mp4").run()
 
