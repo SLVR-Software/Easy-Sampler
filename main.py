@@ -4,7 +4,11 @@ import os, sys
 #functions
 import downloadVideo
 
-FILE_PATH = r"C:\Users\Chris Massie\Google Drive\AudioVideoFiles"
+# FILE_PATH = r"C:\Users\Chris Massie\Google Drive\AudioVideoFiles"
+os.mkdir('testdump')
+FILE_PATH = './testdump'
+
+# TODO config file?
 
 #FILE_PATH = input("Please paste the file path save location:")
 
@@ -13,6 +17,9 @@ FILENAME = "links.txt"
 functionNumber = "0"
 isAcceptableInput = False
 
+#TODO add command line arguments
+#   keep as 0 1 or 2 for now (single argument)
+#   if no arg is supplied then print options and ask for input
 
 while isAcceptableInput == False:
    print("0 - using link file")
