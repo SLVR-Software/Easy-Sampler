@@ -13,17 +13,17 @@ DATA = json.loads(f.read())
 
 FILE_PATH = DATA['FILE_PATH']
 print(FILE_PATH)
+
+if not os.path.exists(FILE_PATH):
+    os.mkdir(FILE_PATH)
+    # Create directory if it doesn't already exist
+    # Useful for creating local directories for testing purposes
+
 # FILE_PATH is where video and audio streams should be saved
 # FILE_PATH can be relative or absolute
 #with open(CONFIG_FILE, 'r') as config_file:
     #config_list = config_file.read().splitlines()
     #FILE_PATH = config_list[0].split('=')[1]
-    # Eventually, I think we could have it read all the config arguments and identify them based on their name
-    # so that order doesn't matter. i.e. FILE_PATH could come first or last, but we don't care because we can 
-    # see which line is FILE_PATH by splitting and checking the parameter
-    #if not os.path.exists(FILE_PATH):
-        #os.mkdir(FILE_PATH)
-
 #FILE_PATH = input("Please paste the file path save location:")
 
 FILENAME = "links.txt"
