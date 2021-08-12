@@ -31,14 +31,14 @@ def downloadVideo(url, FILE_PATH):
         if (stream.type == "video"):
             if (stream.resolution == highestResolution and stream.mime_type == "video/mp4" and isVideoDownloaded == False):
                 print("Downloading...." + highestResolution)
-                video.streams.get_by_itag(stream.itag).download(output_path=SAVE_PATH,filename_prefix=(stream.resolution+"-"+stream.type+"_"))
-                isVideoDownloaded = True
                 videoFileName = stream.resolution+"-"+stream.type+"_"+videoTitle+".mp4"
+                video.streams.get_by_itag(stream.itag).download(output_path=SAVE_PATH,filename=videoFileName)
+                isVideoDownloaded = True
         elif (stream.type == "audio" and stream.mime_type == "audio/mp4" and isAudioDownloaded == False):
             print("Downloading..." + stream.type)
-            video.streams.get_by_itag(stream.itag).download(output_path=SAVE_PATH,filename_prefix=(stream.type+"_"))
-            isAudioDownloaded = True
             audioFileName = stream.type+"_"+videoTitle+".mp4"
+            video.streams.get_by_itag(stream.itag).download(output_path=SAVE_PATH,filename=audioFileName)
+            isAudioDownloaded = True
         if (isAudioDownloaded == True and isVideoDownloaded == True):
             #combine audio and video streams into audio/video file
             videoFilePath = os.path.join(SAVE_PATH, videoFileName)
