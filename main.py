@@ -33,9 +33,14 @@ FILENAME = "links.txt"
 functionNumber = "0"
 isAcceptableInput = False
 
-#TODO add command line arguments
-#   keep as 0 1 or 2 for now (single argument)
-#   if no arg is supplied then print options and ask for input
+# TODO more robust input parsing, more command line arguments as seen fit
+# right now we just support supplying a single argument (functionNumber)
+if len(sys.argv) > 1: # Command-line arguments are supplied (filename counts as 1)
+    if sys.argv[1] in ('0', '1', '2'):
+        functionNumber = sys.argv[1]
+        isAcceptableInput = True
+    else:
+        print('Invalid functionNumber argument')
 
 while isAcceptableInput == False:
    print("0 - using link file")
