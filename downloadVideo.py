@@ -5,8 +5,6 @@ import ffmpeg
 import os, sys, re
 import shutil
 
-
-
 def downloadVideo(url, FILE_PATH):
     print(url)
     video = YouTube(url)
