@@ -56,20 +56,33 @@ while isAcceptableInput == False:
       print("Couldn't be bothered to bullet proof this, try again with a number one through three")
 
 if (functionNumber == "0"):
-   with open(FILENAME) as f:
-      URLS = f.read().splitlines()
-      for url in URLS:
-         downloadVideo.downloadVideo(url, FILE_PATH)
+   try:
+      with open(FILENAME) as f:
+         URLS = f.read().splitlines()
+         for url in URLS:
+            downloadVideo.downloadVideo(url, FILE_PATH)
+   except Exception as exception:
+      print(exception)
 elif (functionNumber == "1"):
-   PLAYLIST_URL = input("Please paste the playlist url:")
-   playlist = Playlist(PLAYLIST_URL)
-   print(playlist.video_urls)
-   URLS = playlist.video_urls
-   for url in URLS:
-      downloadVideo.downloadVideo(url, FILE_PATH)
+   try:
+      PLAYLIST_URL = input("Please paste the playlist url:")
+      playlist = Playlist(PLAYLIST_URL)
+      print(playlist.video_urls)
+      URLS = playlist.video_urls
+      for url in URLS:
+         try:
+            downloadVideo.downloadVideo(url, FILE_PATH)
+         except Exception as e:
+            print(e)
+   except Exception as exception:
+      print(exception)
+
 elif (functionNumber == "2"):
-   URL = input("Paste the video link:")
-   downloadVideo.downloadVideo(URL, FILE_PATH)
+   try:
+      URL = input("Paste the video link:")
+      downloadVideo.downloadVideo(URL, FILE_PATH)
+   except Exception as exception:
+      print(exception)
 
 ##TODO Only get one copy of the highest quality video
 ##TODO Only get one copy of the highest quality video
