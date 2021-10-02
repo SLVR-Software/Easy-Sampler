@@ -14,6 +14,8 @@ DATA = json.loads(f.read())
 FILE_PATH = DATA['FILE_PATH']
 print(FILE_PATH)
 
+f.close()
+
 if not os.path.exists(FILE_PATH):
     os.mkdir(FILE_PATH)
     # Create directory if it doesn't already exist
