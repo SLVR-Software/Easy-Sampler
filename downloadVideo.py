@@ -13,7 +13,8 @@ def downloadVideo(url, FILE_PATH):
     print(videoTitle)
     STREAMS = video.streams
     SAVE_PATH = os.path.join(FILE_PATH, videoTitle)
-    MP3_PATH = os.path.join(FILE_PATH, "\\AudioFiles")
+    MP3_PATH = os.path.join(FILE_PATH, "AudioFiles")
+    print(MP3_PATH)
     print(SAVE_PATH)
     print(url)
     highestResolution = findHighestResolution(STREAMS)
@@ -58,20 +59,22 @@ def downloadVideo(url, FILE_PATH):
             audioclip = AudioFileClip(mp4_file)
             audioclip.write_audiofile(mp3_file)
 
-            #Move mp3 file to the given MP3_PATH
-            shutil.move(mp3_file,MP3_PATH)
-
             #close audio file
             audioclip.close()
+
+            #Move mp3 file to the given MP3_PATH
+            shutil.move(mp3_file,MP3_PATH)
 
             #Deletes the original video file/video file to save disk space
             os.remove(videoFilePath)
             os.remove(audioFilePath)
 
-             
-            #TODO zip up the folders into zip files
-            #TODO delete original folder
             #TODO create csv within each video folder with meta data, youtube link to find it on youtube if needed
+
+            #zip up the folder into zip file
+            shutil.make_archive(SAVE_PATH, 'zip', FILE_PATH, videoTitle)
+
+            #TODO delete original folder
 
             break
 
