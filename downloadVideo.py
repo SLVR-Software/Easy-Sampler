@@ -9,6 +9,7 @@ def downloadVideo(url, FILE_PATH):
     print(url)
     video = YouTube(url)
     print(video.title)
+    #cleans up video titles of charcters that can't be used in file/directory names
     videoTitle = re.sub('[^A-Za-z0-9 ()]+', '', video.title)
     print(videoTitle)
     STREAMS = video.streams
