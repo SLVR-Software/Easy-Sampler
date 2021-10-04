@@ -5,7 +5,7 @@ import ffmpeg
 import os, sys, re
 import shutil
 
-def downloadVideo(url, FILE_PATH):
+def downloadVideo(url, FILE_PATH, DOWNLOAD_VIDEO):
     print(url)
     video = YouTube(url)
     print(video.title)
@@ -50,12 +50,13 @@ def downloadVideo(url, FILE_PATH):
             videoFilePath = os.path.join(SAVE_PATH, videoFileName)
             audioFilePath = os.path.join(SAVE_PATH, audioFileName)
 
-            input_video = ffmpeg.input(videoFilePath)
-            input_audio = ffmpeg.input(audioFilePath)
-            OUTPUT_PATH = os.path.join(SAVE_PATH, "processed_", videoTitle + ".mp4")
+            if(DOWNLOAD_VIDEO):
+                input_video = ffmpeg.input(videoFilePath)
+                input_audio = ffmpeg.input(audioFilePath)
+                OUTPUT_PATH = os.path.join(SAVE_PATH, "processed_", videoTitle + ".mp4")
 
-            ffmpeg.output( input_audio,input_video, videoTitle+".mp4").run()
-            shutil.move((videoTitle+".mp4"),SAVE_PATH)
+                ffmpeg.output( input_audio,input_video, videoTitle+".mp4").run()
+                shutil.move((videoTitle+".mp4"),SAVE_PATH)
 
             mp3_file = os.path.join(SAVE_PATH, videoTitle+".mp3")
 
@@ -89,11 +90,12 @@ def downloadVideo(url, FILE_PATH):
 
     #TODO create csv within each video folder with meta data, youtube link to find it on youtube if needed
 
-    #zip up the folder into zip file
-    shutil.make_archive(SAVE_PATH, 'zip', FILE_PATH, videoTitle)
+    if(DOWNLOAD_VIDEO):
+        #zip up the folder into zip file
+        shutil.make_archive(SAVE_PATH, 'zip', FILE_PATH, videoTitle)
 
-    #move zipped folder to VideoFolder
-    shutil.move((SAVE_PATH+".zip"),MP4_PATH)
+        #move zipped folder to VideoFolder
+        shutil.move((SAVE_PATH+".zip"),MP4_PATH)
 
     #delete original folder
     shutil.rmtree(SAVE_PATH)
