@@ -15,6 +15,7 @@ def downloadVideo(url, FILE_PATH):
     STREAMS = video.streams
     SAVE_PATH = os.path.join(FILE_PATH, videoTitle)
     MP3_PATH = os.path.join(FILE_PATH, "AudioFiles")
+    MP4_PATH = os.path.join(FILE_PATH, "VideoFiles")
     print(MP3_PATH)
     print(SAVE_PATH)
     print(url)
@@ -23,7 +24,10 @@ def downloadVideo(url, FILE_PATH):
     isAudioDownloaded = False
     videoFileName = ""
     audioFileName = ""
+    amountOfStreams = len(STREAMS)
+    countedStreams = 0
     for stream in STREAMS:
+        countedStreams += 1
         print("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ")
         print("Downloading... " + videoTitle)
         print("Length: "+ str(video.length))
@@ -41,7 +45,8 @@ def downloadVideo(url, FILE_PATH):
             video.streams.get_by_itag(stream.itag).download(output_path=SAVE_PATH,filename=audioFileName)
             isAudioDownloaded = True
         if (isAudioDownloaded == True and isVideoDownloaded == True):
-            #combine audio and video streams into audio/video file
+            #Adaptive Video path
+            #combine audio and video streams into single audio/video file
             videoFilePath = os.path.join(SAVE_PATH, videoFileName)
             audioFilePath = os.path.join(SAVE_PATH, audioFileName)
 
@@ -52,32 +57,46 @@ def downloadVideo(url, FILE_PATH):
             ffmpeg.output( input_audio,input_video, videoTitle+".mp4").run()
             shutil.move((videoTitle+".mp4"),SAVE_PATH)
 
-            #convert mp4 audio to mp3
-            mp4_file = audioFilePath
             mp3_file = os.path.join(SAVE_PATH, videoTitle+".mp3")
 
-            #create mp3 file
+            mp4_file = audioFilePath
             audioclip = AudioFileClip(mp4_file)
             audioclip.write_audiofile(mp3_file)
 
             #close audio file
             audioclip.close()
 
-            #Move mp3 file to the given MP3_PATH
-            shutil.move(mp3_file,MP3_PATH)
-
             #Deletes the original video file/video file to save disk space
             os.remove(videoFilePath)
             os.remove(audioFilePath)
 
-            #TODO create csv within each video folder with meta data, youtube link to find it on youtube if needed
-
-            #zip up the folder into zip file
-            shutil.make_archive(SAVE_PATH, 'zip', FILE_PATH, videoTitle)
-
-            #TODO delete original folder
-
             break
+        elif (isAudioDownloaded == False and isVideoDownloaded == True and countedStreams == amountOfStreams):
+            #Progressive video path
+            videoFilePath = os.path.join(SAVE_PATH, videoFileName)
+            mp3_file = os.path.join(SAVE_PATH, videoTitle+".mp3")
+
+            #creates MP3
+            video = VideoFileClip(videoFilePath)
+            video.audio.write_audiofile(mp3_file)
+
+            #close the file
+            video.close()
+            break
+
+    #Move mp3 file to the given MP3_PATH
+    shutil.move(mp3_file,MP3_PATH)
+
+    #TODO create csv within each video folder with meta data, youtube link to find it on youtube if needed
+
+    #zip up the folder into zip file
+    shutil.make_archive(SAVE_PATH, 'zip', FILE_PATH, videoTitle)
+
+    #move zipped folder to VideoFolder
+    shutil.move((SAVE_PATH+".zip"),MP4_PATH)
+
+    #delete original folder
+    shutil.rmtree(SAVE_PATH)
 
 def findHighestResolution(STREAMS):
     highestResolution = 0
