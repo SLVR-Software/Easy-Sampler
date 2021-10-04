@@ -1,3 +1,4 @@
 {
-    "FILE_PATH" : "./somebody_forgot_to_change_the_default_file_path"
+    "FILE_PATH" : "./somebody_forgot_to_change_the_default_file_path",
+    "DOWNLOAD_VIDEO" : false
 }
