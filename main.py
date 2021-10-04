@@ -12,6 +12,8 @@ f = open ('config.json')
 DATA = json.loads(f.read())
 
 FILE_PATH = DATA['FILE_PATH']
+DOWNLOAD_VIDEO = DATA['downloadVideo']
+print(DOWNLOAD_VIDEO)
 print(FILE_PATH)
 
 f.close()
@@ -60,7 +62,7 @@ if (functionNumber == "0"):
       with open(FILENAME) as f:
          URLS = f.read().splitlines()
          for url in URLS:
-            downloadVideo.downloadVideo(url, FILE_PATH)
+            downloadVideo.downloadVideo(url, FILE_PATH, DOWNLOAD_VIDEO)
    except Exception as exception:
       print(exception)
 elif (functionNumber == "1"):
@@ -71,7 +73,7 @@ elif (functionNumber == "1"):
       URLS = playlist.video_urls
       for url in URLS:
          try:
-            downloadVideo.downloadVideo(url, FILE_PATH)
+            downloadVideo.downloadVideo(url, FILE_PATH, DOWNLOAD_VIDEO)
          except Exception as e:
             print(e)
    except Exception as exception:
@@ -80,7 +82,7 @@ elif (functionNumber == "1"):
 elif (functionNumber == "2"):
    try:
       URL = input("Paste the video link:")
-      downloadVideo.downloadVideo(URL, FILE_PATH)
+      downloadVideo.downloadVideo(URL, FILE_PATH, DOWNLOAD_VIDEO)
    except Exception as exception:
       print(exception)
 
