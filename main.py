@@ -12,7 +12,7 @@ f = open ('config.json')
 DATA = json.loads(f.read())
 
 FILE_PATH = DATA['FILE_PATH']
-DOWNLOAD_VIDEO = DATA['downloadVideo']
+DOWNLOAD_VIDEO = DATA['DOWNLOAD_VIDEO']
 print(DOWNLOAD_VIDEO)
 print(FILE_PATH)
 
