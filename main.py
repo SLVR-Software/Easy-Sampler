@@ -4,6 +4,7 @@ import os, sys
 import json
 #functions
 import downloadVideo
+import helper
 
 CONFIG_FILE = 'config.txt'
 
@@ -11,7 +12,8 @@ CONFIG_FILE = 'config.txt'
 f = open ('config.json')
 DATA = json.loads(f.read())
 
-FILE_PATH = DATA['FILE_PATH']
+#FILE_PATH = DATA['FILE_PATH']
+FILE_PATH = helper.promptUserForDirectory()
 DOWNLOAD_VIDEO = DATA['DOWNLOAD_VIDEO']
 print(DOWNLOAD_VIDEO)
 print(FILE_PATH)
