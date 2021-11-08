@@ -86,10 +86,6 @@ elif (functionNumber == "2"):
    except Exception as exception:
       print(exception)
 
-##TODO Only get one copy of the highest quality video
-##TODO Only get one copy of the highest quality video
-#TODO Merge Video and Audio together into new file and delete original video file to save space
-##TODO Scrape video title down to only include 'a-z and 0-9' this will stop names breaking file paths
 
 if __name__ == "__main__":
    print("File one executed when ran directly")
