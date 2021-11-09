@@ -1,9 +1,6 @@
 import promptlib
 import os
 
-
-
-
 def promptUserForDirectory():
     prompter = promptlib.Files()
     dir = prompter.dir()
