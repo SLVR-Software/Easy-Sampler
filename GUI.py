@@ -15,7 +15,11 @@ def samplePlaylist_callback(sender, app_data, user_data):
     with dpg.window(label="Playlist Sampler"):
         dpg.add_button(label="Pick Output Folder",callback=inputUrl_callback)
     
-
+def youtubeSampler_callback(sender, app_data, user_data):
+    with dpg.window(label="Youtube Sampler", width=300, height=300):
+        dpg.add_text("Simply Sample")
+        dpg.add_button(label="Sample Youtube Video")
+        dpg.add_button(label="Sample Youtube Playlist",callback=samplePlaylist_callback)
     
 
 with dpg.viewport_menu_bar():
@@ -27,17 +31,20 @@ with dpg.viewport_menu_bar():
             dpg.add_menu_item(label="Setting 1")
             dpg.add_menu_item(label="Setting 2")
 
+    with dpg.menu(label="Open"):
+        dpg.add_menu_item(label="Youtube Sampler", callback=youtubeSampler_callback)
+
     dpg.add_menu_item(label="Help")
+
+    
+
 
     with dpg.menu(label="Widget Items"):
         dpg.add_checkbox(label="Pick Me")
         dpg.add_button(label="Press Me")
         dpg.add_color_picker(label="Color Me")
 
-with dpg.window(label="Youtube Sampler", width=300, height=300):
-    dpg.add_text("Simply Sample")
-    dpg.add_button(label="Sample Youtube Video")
-    dpg.add_button(label="Sample Youtube Playlist",callback=samplePlaylist_callback)
+
 
 dpg.set_viewport_small_icon("./img/record.ico")
 dpg.set_viewport_large_icon("./img/record.ico")
