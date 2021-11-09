@@ -39,6 +39,9 @@ with dpg.window(label="Youtube Sampler", width=300, height=300):
     dpg.add_button(label="Sample Youtube Video")
     dpg.add_button(label="Sample Youtube Playlist",callback=samplePlaylist_callback)
 
+dpg.set_viewport_small_icon("./img/record.ico")
+dpg.set_viewport_large_icon("./img/record.ico")
+
 dpg.setup_dearpygui()
 dpg.show_viewport()
 dpg.start_dearpygui()
