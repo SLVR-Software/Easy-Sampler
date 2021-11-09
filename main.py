@@ -39,6 +39,21 @@ FILENAME = "links.txt"
 functionNumber = "0"
 isAcceptableInput = False
 
+def processPlaylist(FILE_PATH, DOWNLOAD_VIDEO):
+   try:
+      PLAYLIST_URL = input("Please paste the playlist url:")
+      playlist = Playlist(PLAYLIST_URL)
+      print(playlist.video_urls)
+      URLS = playlist.video_urls
+      for url in URLS:
+         try:
+            downloadVideo.downloadVideo(url, FILE_PATH, DOWNLOAD_VIDEO)
+         except Exception as e:
+            print(e)
+   except Exception as exception:
+      print(exception)
+
+
 # TODO more robust input parsing, more command line arguments as seen fit
 # right now we just support supplying a single argument (functionNumber)
 if len(sys.argv) > 1: # Command-line arguments are supplied (filename counts as 1)
@@ -68,18 +83,7 @@ if (functionNumber == "0"):
    except Exception as exception:
       print(exception)
 elif (functionNumber == "1"):
-   try:
-      PLAYLIST_URL = input("Please paste the playlist url:")
-      playlist = Playlist(PLAYLIST_URL)
-      print(playlist.video_urls)
-      URLS = playlist.video_urls
-      for url in URLS:
-         try:
-            downloadVideo.downloadVideo(url, FILE_PATH, DOWNLOAD_VIDEO)
-         except Exception as e:
-            print(e)
-   except Exception as exception:
-      print(exception)
+   processPlaylist(FILE_PATH, DOWNLOAD_VIDEO)
 
 elif (functionNumber == "2"):
    try:
