@@ -50,7 +50,7 @@ dirLabel = Label(text="")
 
 dirLabel.grid(row=2,column=0)
 
-sampleButton = Button(root, text="Sampling", command=clickSample)
+sampleButton = Button(root, text="Sample", command=clickSample)
 sampleButton.grid(row=3,column=0)
 
 
