@@ -43,8 +43,8 @@ def canSample():
 
 
 def clickSample():
-    #PLAYLIST.processPlaylist(root.directory,False)
     pass
+    
 
 def clickDirSelector():
     root.directory = filedialog.askdirectory()
