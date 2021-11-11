@@ -13,6 +13,7 @@ def on_focusIn(event):
         event.widget.delete(0, END)
     else:
         YOUTUBE_URL.config(foreground='black')
+    canSample()
 
 def on_focusOut(event):
     if YOUTUBE_URL.get().replace(" ","") == "":
@@ -22,6 +23,23 @@ def on_focusOut(event):
         userText = YOUTUBE_URL.get().replace(" ","")
         event.widget.delete(0, END)
         default_YOUTUBE_URL_TEXT.set(userText)
+    canSample()
+
+def on_keyRelease(event):
+    userText = YOUTUBE_URL.get().replace(" ","")
+    event.widget.delete(0, END)
+    default_YOUTUBE_URL_TEXT.set(userText)
+    canSample()
+
+
+def step():
+    pass
+
+def canSample():
+    if(YOUTUBE_URL.get().__contains__("https://www.youtube.com/watch?v=") and dirLabel['text'] != ""):
+        sampleButton["state"] = NORMAL
+    else:
+        sampleButton["state"] = DISABLED
 
 
 def clickSample():
@@ -32,6 +50,7 @@ def clickDirSelector():
     root.directory = filedialog.askdirectory()
     print(root.directory)
     dirLabel['text'] = root.directory
+    canSample()
 
 default_YOUTUBE_URL_TEXT = StringVar()
 default_YOUTUBE_URL_TEXT.set("https://www.youtube.com/watch?v=00000000000")
@@ -39,6 +58,7 @@ default_YOUTUBE_URL_TEXT.set("https://www.youtube.com/watch?v=00000000000")
 YOUTUBE_URL = Entry(root, width=50, textvariable=default_YOUTUBE_URL_TEXT)
 YOUTUBE_URL.bind("<FocusIn>", on_focusIn)
 YOUTUBE_URL.bind("<FocusOut>", on_focusOut)
+YOUTUBE_URL.bind("<KeyRelease>", on_keyRelease)
 YOUTUBE_URL.grid(row=0, column=0)
 YOUTUBE_URL.config(foreground='gray')
 #YOUTUBE_URL.insert(0, "Enter the Youtube URL")
@@ -52,6 +72,8 @@ dirLabel.grid(row=2,column=0)
 
 sampleButton = Button(root, text="Sample", command=clickSample)
 sampleButton.grid(row=3,column=0)
+sampleButton["state"] = DISABLED
+
 
 
 
