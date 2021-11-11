@@ -63,7 +63,7 @@ YOUTUBE_URL.grid(row=0, column=0)
 YOUTUBE_URL.config(foreground='gray')
 #YOUTUBE_URL.insert(0, "Enter the Youtube URL")
 
-dirSelectButton = Button(root, text="Folder", command=clickDirSelector)
+dirSelectButton = Button(root, text="Select Folder", command=clickDirSelector)
 dirSelectButton.grid(row=1,column=0)
 
 dirLabel = Label(text="")
