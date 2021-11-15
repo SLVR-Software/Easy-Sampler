@@ -14,6 +14,12 @@ def promptUserForDirectory():
         os.mkdir(videoDir)
     return dir
 
+def linkType(link):
+    if ("https://www.youtube.com/playlist?list=" in link):
+        return "playlist"
+    elif ("https://www.youtube.com/watch?v=" in link):
+        return "video"
+
 if __name__ == "__main__":
    print("File one executed when ran directly")
 else:
