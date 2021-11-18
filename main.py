@@ -44,13 +44,16 @@ def processPlaylist(FILE_PATH, DOWNLOAD_VIDEO,PLAYLIST_URL):
       playlist = Playlist(PLAYLIST_URL)
       print(playlist.video_urls)
       URLS = playlist.video_urls
-      for url in URLS:
-         try:
-            downloadVideo.downloadVideo(url, FILE_PATH, DOWNLOAD_VIDEO)
-         except Exception as e:
-            print(e)
+      processURLList(URLS)
    except Exception as exception:
       print(exception)
+
+def processURLList(URLS,FILE_PATH,DOWNLOAD_VIDEO):
+   for url in URLS:
+      try:
+         downloadVideo.downloadVideo(url,FILE_PATH, DOWNLOAD_VIDEO)
+      except Exception as e:
+         print(e)
 
 
 # TODO more robust input parsing, more command line arguments as seen fit
