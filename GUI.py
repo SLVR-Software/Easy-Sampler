@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
+from helper import *
 
 
 root = Tk()
@@ -36,8 +37,7 @@ def step():
     pass
 
 def canSample():
-    print(YOUTUBE_URL.get())
-    if(YOUTUBE_URL.get().__contains__("https://www.youtube.com/watch?v=") and YOUTUBE_URL.get() != 'https://www.youtube.com/watch?v=00000000000' and dirLabel['text'] != ""):
+    if((linkType(str((YOUTUBE_URL.get()))) == 'video') or (linkType(str((YOUTUBE_URL.get()))) == 'playlist') and YOUTUBE_URL.get() != 'https://www.youtube.com/watch?v=00000000000' and dirLabel['text'] != ""):
         sampleButton["state"] = NORMAL
     else:
         sampleButton["state"] = DISABLED
