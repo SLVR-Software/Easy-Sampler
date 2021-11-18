@@ -39,9 +39,8 @@ FILENAME = "links.txt"
 functionNumber = "0"
 isAcceptableInput = False
 
-def processPlaylist(FILE_PATH, DOWNLOAD_VIDEO):
+def processPlaylist(FILE_PATH, DOWNLOAD_VIDEO,PLAYLIST_URL):
    try:
-      PLAYLIST_URL = input("Please paste the playlist url:")
       playlist = Playlist(PLAYLIST_URL)
       print(playlist.video_urls)
       URLS = playlist.video_urls
@@ -83,7 +82,8 @@ if (functionNumber == "0"):
    except Exception as exception:
       print(exception)
 elif (functionNumber == "1"):
-   processPlaylist(FILE_PATH, DOWNLOAD_VIDEO)
+   PLAYLIST_URL = input("Please paste the playlist url:")
+   processPlaylist(FILE_PATH, DOWNLOAD_VIDEO, PLAYLIST_URL)
 
 elif (functionNumber == "2"):
    try:
