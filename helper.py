@@ -1,6 +1,7 @@
 import promptlib
 import os
 import downloadVideo
+from pytube import Playlist
 
 def promptUserForDirectory():
     prompter = promptlib.Files()
