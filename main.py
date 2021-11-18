@@ -5,6 +5,7 @@ import json
 #functions
 import downloadVideo
 import helper
+from helper import *
 
 CONFIG_FILE = 'config.txt'
 
@@ -38,23 +39,6 @@ FILENAME = "links.txt"
 
 functionNumber = "0"
 isAcceptableInput = False
-
-def processPlaylist(FILE_PATH, DOWNLOAD_VIDEO,PLAYLIST_URL):
-   try:
-      playlist = Playlist(PLAYLIST_URL)
-      print(playlist.video_urls)
-      URLS = playlist.video_urls
-      processURLList(URLS)
-   except Exception as exception:
-      print(exception)
-
-def processURLList(URLS,FILE_PATH,DOWNLOAD_VIDEO):
-   for url in URLS:
-      try:
-         downloadVideo.downloadVideo(url,FILE_PATH, DOWNLOAD_VIDEO)
-      except Exception as e:
-         print(e)
-
 
 # TODO more robust input parsing, more command line arguments as seen fit
 # right now we just support supplying a single argument (functionNumber)
