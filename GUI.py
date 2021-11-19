@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
 from helper import *
-
+import threading
 
 root = Tk()
 
@@ -32,7 +32,6 @@ def on_keyRelease(event):
     default_YOUTUBE_URL_TEXT.set(userText)
     canSample()
 
-
 def step():
     pass
 
@@ -42,10 +41,24 @@ def canSample():
     else:
         sampleButton["state"] = DISABLED
 
-
 def clickSample():
-    pass
-    
+    sampleButton["state"] = DISABLED
+    if(linkType(str(YOUTUBE_URL.get())) == 'video'):
+        totalVideosText = Label(text = "0/1")
+        totalVideosText.grid(row=4,column=0)
+    elif(linkType(str(YOUTUBE_URL.get())) == 'playlist'):
+        URLS = getPlaylist(YOUTUBE_URL.get())
+        totalVideosText = Label(text="0/" + str(len(URLS)))
+        totalVideosText.grid(row=4, column=0)
+        count = 0
+        for url in URLS:
+            try:
+                count += 1
+                root.update()
+                downloadVideo.downloadVideo(url,dirLabel['text'], False)
+                totalVideosText['text'] = ( str(count) + "/" + str(len(URLS)) )
+            except Exception as e:
+                print(e)
 
 def clickDirSelector():
     root.directory = filedialog.askdirectory()
