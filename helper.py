@@ -31,6 +31,14 @@ def processPlaylist(FILE_PATH, DOWNLOAD_VIDEO,PLAYLIST_URL):
    except Exception as exception:
       print(exception)
 
+def getPlaylist(PLAYLIST_URL):
+    try:
+        playlist = Playlist(PLAYLIST_URL)
+        URLS = playlist.video_urls
+        return URLS
+    except Exception as exception:
+        print(exception)
+
 def processURLList(URLS,FILE_PATH,DOWNLOAD_VIDEO):
    for url in URLS:
       try:
