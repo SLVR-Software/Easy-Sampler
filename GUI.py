@@ -47,6 +47,7 @@ def clickSample():
         totalVideosText = Label(text = "0/1")
         totalVideosText.grid(row=4,column=0)
     elif(linkType(str(YOUTUBE_URL.get())) == 'playlist'):
+        hideSampleConfig()
         URLS = getPlaylist(YOUTUBE_URL.get())
         totalVideosText = Label(text="0/" + str(len(URLS)))
         totalVideosText.grid(row=4, column=0)
@@ -59,6 +60,20 @@ def clickSample():
                 totalVideosText['text'] = ( str(count) + "/" + str(len(URLS)) )
             except Exception as e:
                 print(e)
+        totalVideosText.grid_forget()
+        showSampleConfig()
+
+def hideSampleConfig():
+    YOUTUBE_URL.grid_forget()
+    dirSelectButton.grid_forget()
+    dirLabel.grid_forget()
+    sampleButton.grid_forget()
+
+def showSampleConfig():
+    YOUTUBE_URL.grid(row=0,column=0)
+    dirSelectButton.grid(row=1,column=0)
+    dirLabel.grid(row=2,column=0)
+    sampleButton.grid(row=3,column=0)
 
 def clickDirSelector():
     root.directory = filedialog.askdirectory()
