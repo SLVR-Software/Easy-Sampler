@@ -4,8 +4,17 @@ import ffmpeg
 # misc
 import os, sys, re
 import shutil
+import time
+#tkinter
+from tkinter import *
+from tkinter import filedialog
+from tkinter.ttk import *
+#helper
+from helper import *
 
-def downloadVideo(url, FILE_PATH, DOWNLOAD_VIDEO):
+def downloadVideo(url, FILE_PATH, DOWNLOAD_VIDEO, root, progressBar):
+    print(type(root))
+    print(type(progressBar))
     video = YouTube(url)
     #cleans up video titles of charcters that can't be used in file/directory names
     videoTitle = re.sub('[^A-Za-z0-9 ()]+', '', video.title)
@@ -20,7 +29,10 @@ def downloadVideo(url, FILE_PATH, DOWNLOAD_VIDEO):
     audioFileName = ""
     amountOfStreams = len(STREAMS)
     countedStreams = 0
+    progressBarIncrement = 85 / amountOfStreams
     for stream in STREAMS:
+        progressBar['value'] += progressBarIncrement
+        root.update_idletasks()
         countedStreams += 1
         if (stream.type == "video"):
             if (stream.resolution == highestResolution and stream.mime_type == "video/mp4" and isVideoDownloaded == False):
@@ -75,6 +87,10 @@ def downloadVideo(url, FILE_PATH, DOWNLOAD_VIDEO):
     #Move mp3 file to the given MP3_PATH
     shutil.move(mp3_file,MP3_PATH)
 
+    progressBar['value'] += 5
+    root.update_idletasks()
+    
+
     #TODO create csv within each video folder with meta data, youtube link to find it on youtube if needed
 
     if(DOWNLOAD_VIDEO):
@@ -83,9 +99,19 @@ def downloadVideo(url, FILE_PATH, DOWNLOAD_VIDEO):
 
         #move zipped folder to VideoFolder
         shutil.move((SAVE_PATH+".zip"),MP4_PATH)
+    
+    progressBar['value'] += 5
+    root.update_idletasks()
 
     #delete original folder
     shutil.rmtree(SAVE_PATH)
+
+    progressBar['value'] += 5
+    root.update_idletasks()
+    print("I'm waiting 5 seconds!")
+    progressBar['value'] = 100
+    root.update_idletasks()
+    
 
 def downloadVideo_Deprecated(url, FILE_PATH, DOWNLOAD_VIDEO):
     #DEPRECATED, KEPT FOR HISTORICAL PURPOSES CURRENTLY (THIS IS HARD TO BREAK UP INTO SMALLER FUNCTIONS)
