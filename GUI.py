@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
 from helper import *
+from tkinter.ttk import *
 import threading
 
 root = Tk()
@@ -56,11 +57,19 @@ def clickSample():
             try:
                 count += 1
                 root.update()
-                downloadVideo.downloadVideo(url,dirLabel['text'], False)
-                totalVideosText['text'] = ( str(count) + "/" + str(len(URLS)) )
+                progress = Progressbar(root, orient = HORIZONTAL,
+                                        length = 100, mode = 'determinate')
+                progress.grid(row=5, column=0)
+                print("outside")
+                print(type(root))
+                print(type(progress))
+                downloadVideo.downloadVideo(url,dirLabel['text'], False, root, progress)
+                
+                totalVideosText['text'] = (str(count) + "/" + str(len(URLS)))
             except Exception as e:
                 print(e)
         totalVideosText.grid_forget()
+        progress.grid_forget()
         showSampleConfig()
 
 def hideSampleConfig():
