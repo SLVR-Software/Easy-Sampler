@@ -12,6 +12,7 @@ root = Tk()
 root.title("Easy Sampler")
 root.iconbitmap('img/record.ico')
 
+
 def on_focusIn(event):
     YOUTUBE_URL.config(foreground='black')
     if YOUTUBE_URL.get() == "https://www.youtube.com/watch?v=00000000000":
@@ -101,10 +102,12 @@ def clickDirSelectorYoutube():
     canSampleYoutube()
 
 def spotifySelected():
+    root.configure(bg='#1DB954')
     hideYoutubeSampleConfig()
     showSpotifySampleConfig()
 
 def youtubeSelected():
+    root.configure(bg='#FF0000')
     hideSpotifySampleConfig()
     showYoutubeSampleConfig()
 
