@@ -6,6 +6,7 @@ import os
 import json
 from json.decoder import JSONDecodeError
 import pprint
+import time
 
 def printRecentlyPlayedTracks():
     scope = "user-read-recently-played"
@@ -24,6 +25,12 @@ def get_playlist_uri(playlistName):
     for item in playlist['items']:
         if item['name'] == playlistName:
             return item
+
+def get_list_of_playlist_tracks(playlist):
+    tracks = []
+    for song in playlist['tracks']['items']:
+        tracks.append(song['track'])
+    return tracks
 
 def triggerPlayTrack():
     username = '12121511576'
@@ -51,11 +58,20 @@ def triggerPlayTrack():
 
     if artist !="":
         print("Currently playing " + artist + " - " + track) 
-    sp.start_playback(uris=['spotify:track:7Apgw38C1TgzSaVNpUx1TX'])
+    #sp.start_playback(uris=['spotify:track:7Apgw38C1TgzSaVNpUx1TX'])
 
     track = sp.current_user_playing_track()
     print(track['item']['duration_ms'])
     #print(sp.current_user_playlists(limit=50, offset=0))
-    print(get_playlist_uri('Food Songs')['name'])
+    playlist = get_playlist_uri('Synthetic Rhythms Playlist')
+    playlist = (sp.playlist(playlist['id']))
+    tracks = get_list_of_playlist_tracks(playlist)
+    for track in tracks:
+        sp.start_playback(uris=[track['uri']])
+        #time.sleep(track['duration_ms'] / 1000)
+        time.sleep(10)
+
+
+
 
 triggerPlayTrack()
