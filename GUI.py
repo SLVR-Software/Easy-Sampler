@@ -143,6 +143,9 @@ spotify_playlistNames = []
 for playlist in spotify_playlists:
     spotify_playlistNames.append(playlist['name'])
 
+#fix for tkinter bug
+spotify_playlistNames.insert(0, 'Select a Playlist')
+
 spotify_playlistVariable = StringVar(root)
 
 spotify_playlistVariable.set(spotify_playlistNames[0])
