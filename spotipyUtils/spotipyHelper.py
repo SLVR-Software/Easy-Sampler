@@ -1,7 +1,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import spotipy.util as util
-from spotipyUtils import cred
+import cred
 import os
 import json
 from json.decoder import JSONDecodeError
@@ -31,6 +31,8 @@ def get_all_playlist():
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=cred.client_id, client_secret= cred.client_secret, redirect_uri=cred.redirect_url, scope=scope))
     return (sp.current_user_playlists(limit=50, offset=0))['items']
 
+def get_track_time_ms(track):
+    return(track['duration_ms'])
 
 def get_list_of_playlist_tracks(playlist):
     tracks = []
@@ -77,9 +79,29 @@ def triggerPlayTrack():
         #time.sleep(track['duration_ms'] / 1000)
         time.sleep(10)
 
+def trigger_playback(sp,track):
+    sp.start_playback(uris=[track['uri']])
+    wait_duration_of_track(track)
+    
+def wait_duration_of_track(track):
+    print("Waiting " + str(track['duration_ms'] / 1000) + " seconds")
+    print(track['name'] + ' by ' + track['artists'][0]['name'] + ' is playing....')
+    time.sleep(track['duration_ms'] / 1000)
 
 
+def test():
 
+    scope = 'user-read-private user-read-playback-state user-modify-playback-state'
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=cred.client_id, client_secret= cred.client_secret, redirect_uri=cred.redirect_url, scope=scope))
+
+    playlist = get_playlist_uri('Synthetic Rhythms Playlist')
+    playlist = (sp.playlist(playlist['id']))
+    tracks = get_list_of_playlist_tracks(playlist)
+    count =0
+    for track in tracks:
+        trigger_playback(sp, track)
+
+test()
 #triggerPlayTrack()
 
 if __name__ == "__main__":
